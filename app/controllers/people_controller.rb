@@ -7,32 +7,35 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @people = Person.find(params[:id])
+    @person = Person.find(params[:id])
   end
 
   # # new is for create
   def new
-    @people = Person.new
+    @person = Person.new
   end
 
   def create
-    @person = Person.new(people_params)
- 
+    @person = Person.new(person_params)
     if @person.save
-      redirect_to person_path
+      redirect_to people_path
     else
       render :new
     end
   end
 
-  # # destroy is for destroying
-  # def destroy
-  #   @people = Person.find(params[:id]).destroy
-  # end
+  def destroy
+    @person = Person.find(params[:id]).destroy
+  end
 
   # # update is for updating
   # def update
-  #   @people = Person.find(params[:id]).
+  #   @person = Person.find(params[:id]).
   # end
+ private
+
+  def person_params
+    params.require(:person).permit(:name, :age, :hair_color, :eye_color)
+  end
 
 end
